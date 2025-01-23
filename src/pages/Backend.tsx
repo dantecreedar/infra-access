@@ -1,9 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaServer } from "react-icons/fa";
-
+// import imgBg from "../assets/images/banner-three-left-shape.png";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import Spinner from "../components/Spinner";
 const Backend: React.FC = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    
+    setTimeout(() => {
+      setLoading(false); 
+    }, 1000);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Spinner size="w-16 h-16" color="border-grey-400" />
+      </div>
+    );
+  }
   return (
-    <div className="p-6 bg-gray-100 rounded-lg shadow-lg">
+    <>
+    
+    
+    <Navbar/>
+    {/* <img src={imgBg} alt="" className="absolute w-52 hidden md:block" /> */}
+    <div className="p-6 bg-gray-100 rounded-lg shadow-lg"  style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+       height:'100%'
+    }}>
       <div className="bg-white p-4 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold flex items-center gap-2 text-gray-800">
           <FaServer className="text-green-600" /> Backend
@@ -53,6 +82,8 @@ const Backend: React.FC = () => {
         </ul>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 };
 
