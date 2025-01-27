@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   FaJenkins,
   FaAws,
@@ -6,10 +6,11 @@ import {
   FaCode,
   FaHome,
   FaTimes,
-  FaBell,
+
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import Notification from "./Notification";
+import AccountMenu from "./AcountMenu";
+
 const SidebarMobile: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
   isOpen,
   onClose,
@@ -19,13 +20,9 @@ const SidebarMobile: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
     imgSrc:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
     mail: "user@mail.com",
-    notification: 5
-  };
-  const [showNotifications, setShowNotifications] = useState(false);
 
-  const toggleNotifications = () => {
-    setShowNotifications(!showNotifications);
   };
+  
   return (
     <div
       className={`fixed top-0 left-0 h-full bg-[linear-gradient(90deg,_#3c72fc_-10.59%,_#00060c_300.59%)] text-white shadow-lg transform ${
@@ -41,26 +38,14 @@ const SidebarMobile: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
         </button>
       </div>
       <div className="relative flex justify-center gap-6 ">
-          <button
-            className="relative text-white hover:text-black"
-            onClick={toggleNotifications}
-          >
-            <FaBell className="w-6 h-6 " />
-            <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-              {user.notification}
-            </span>
-          </button>
-          {showNotifications && <Notification />}
-        <p >{user.mail}</p>
-        </div>
+       
+
+        <p>{user.mail}</p>
+      </div>
       {/* Usuario */}
-      <div className="flex items-center gap-3 px-4 mt-4 justify-center">
-        <img
-          alt=""
-          src={user.imgSrc}
-          className="w-10 h-10 rounded-full ring-2 ring-white"
-        />
-        <p>{user.name}</p>
+      <div className="flex justify-center">
+
+      <AccountMenu />
       </div>
 
       {/* Navegación */}
@@ -100,7 +85,6 @@ const SidebarMobile: React.FC<{ isOpen: boolean; onClose: () => void }> = ({
           <FaCode />
           <span>Frontend</span>
         </NavLink>
-        
       </nav>
     </div>
   );

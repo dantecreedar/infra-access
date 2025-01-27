@@ -9,39 +9,30 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import logo from "../../public/gearth.png";
 
-
-interface SidebarProp{
-
-onToggle: (isOpen: boolean) => void
-
+interface SidebarProp {
+  onToggle: (isOpen: boolean) => void;
 }
-const Sidebar: React.FC<SidebarProp> = ({onToggle}) => {
+const Sidebar: React.FC<SidebarProp> = ({ onToggle }) => {
   const [isOpen, setIsOpen] = useState(true);
   const toggleSidebar = () => {
     const newState = !isOpen;
     setIsOpen(newState);
-    onToggle(newState); 
+    onToggle(newState);
   };
 
-  const user = {
-    name: 'Usuario',
-    imgSrc: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-  }
-
+ 
 
   return (
     <div className="flex min-h-screen">
-      
       {/* Sidebar */}
       <div
         className={`bg-[linear-gradient(90deg,_#3c72fc_-10.59%,_#00060c_300.59%)] text-white   ${
           isOpen ? "w-40 " : "w-16"
         } transition-all duration-500 ease-in-out hidden sm:block`}
       >
-        
         <div className="flex-1 justify-between items-center p-4 border-gray-700">
-        
           <button
             className={`text-xl focus:outline-none transform ${
               isOpen ? "rotate-90" : "rotate-0"
@@ -49,27 +40,23 @@ const Sidebar: React.FC<SidebarProp> = ({onToggle}) => {
             onClick={toggleSidebar}
           >
             {/* Cambiar icono dependiendo del estado */}
-            {isOpen ? <FaTimes /> : <FaBars  />}
+            {isOpen ? <FaTimes /> : <FaBars />}
           </button>
-         
-
-          {isOpen && <h1 className="text-lg font-bold text-center">GearthLogic</h1>}
-          <div className="flex justify-center gap-3 mt-5">
-  <img
-    alt=""
-    src={user.imgSrc}
-    className="inline-block size-6 rounded-full ring-2 ring-white"
-  />
-  <p className={` ${
-              isOpen ? "block" : "hidden"
-            } `}>{user.name}</p>
-</div>
+          <div className="flex justify-center mt-5">
+            {isOpen && (
+              <img
+                src={logo}
+                alt=""
+                width={60}
+                className="flex justify-center"
+              />
+            )}
+          </div>
         </div>
 
- {/* crear ruta para el dashboard (dashboard routes) */}
+        {/* crear ruta para el dashboard (dashboard routes) */}
 
         <nav className="mt-6">
-
           {/* Botón Home */}
 
           <NavLink
@@ -78,7 +65,6 @@ const Sidebar: React.FC<SidebarProp> = ({onToggle}) => {
           >
             <FaHome />
             <span
-           
               className={`${
                 isOpen
                   ? "opacity-100 max-w-full translate-x-0"
@@ -93,7 +79,7 @@ const Sidebar: React.FC<SidebarProp> = ({onToggle}) => {
 
           <NavLink
             to="/jenkins"
-         className="flex items-center gap-4 px-4 py-3 hover:bg-black focus:outline-none focus:bg-black  "
+            className="flex items-center gap-4 px-4 py-3 hover:bg-black focus:outline-none focus:bg-black  "
           >
             <FaJenkins />
             <span
@@ -125,7 +111,7 @@ const Sidebar: React.FC<SidebarProp> = ({onToggle}) => {
             </span>
           </NavLink>
 
-          {/* Botón Backend */} 
+          {/* Botón Backend */}
 
           <NavLink
             to="/backend"
@@ -160,9 +146,12 @@ const Sidebar: React.FC<SidebarProp> = ({onToggle}) => {
               Frontend
             </span>
           </NavLink>
-          
-
         </nav>
+        <hr />
+        <div className="flex justify-center gap-3  mt-3 absolute left-4">
+         
+         
+        </div>
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ export const Navigation: React.FC = () => {
     //  llamada a la API
       setTimeout(() => {
         setLoading(false); // Después de un "tiempo de espera" cambia el estado de loading
-      }, 2000); 
+      }, 1000); 
     }
   }, [isAuthenticated]);
 
@@ -34,7 +34,8 @@ export const Navigation: React.FC = () => {
             element={
               loading ? (
                 <div className="flex justify-center items-center min-h-screen">
-                  <Spinner size="w-16 h-16" color="border-indigo-500" />
+                  <Spinner size="w-16 h-16" color="border-red" />
+                 
                 </div>
               ) : (
                 <DashboardRoutes />

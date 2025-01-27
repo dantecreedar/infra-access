@@ -1,8 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Checkbox,
+  Container,
+  FormControlLabel,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
+import GoogleIcon from "@mui/icons-material/Google";
 import logo from "../../../public/gearth.png";
 import imgBg from "../../assets/images/offer-bg-shape-right.png";
-import logoGoogle from '../../../public/google.png'
+
 type LoginPageProps = {
   onLogin: () => void;
 };
@@ -10,6 +21,7 @@ type LoginPageProps = {
 export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
@@ -26,95 +38,155 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   };
 
   const handleGoogleLogin = () => {
-    console.log("Iniciar sesión con Gmail");
+    console.log("Iniciar sesión con Google");
     onLogin();
     navigate("/home");
   };
 
   return (
-    <>
-      <img src={imgBg} alt="" className="absolute hidden md:block right-0" />
-      <div className="font-sans min-h-screen flex items-center justify-center bg-white">
-        <div
-          className="rounded-lg p-6 shadow-xl max-w-md w-full bg-[linear-gradient(90deg,_#3c72fc_-10.59%,_#00060c_300.59%)]"
+    <Container
+      maxWidth="xs"
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(90deg, #3c72fc -10.59%, #00060c 300.59%)",
+      }}
+    >
+      <Paper
+        elevation={3}
+        sx={{
+          p: 4,
+          position: "relative",
+          textAlign: "center",
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          backdropFilter: "blur(10px)",
+          borderRadius: 3,
+          boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
+        }}
+      >
+        <img
+          src={imgBg}
+          alt=""
           style={{
-            backgroundColor: "white",
-            boxShadow: "0 8px 16px rgba(0, 0, 0, 0.5)",
+            position: "absolute",
+            top: 0,
+            right: 0,
+            height: "100%",
+            opacity: 0.1,
+            zIndex: -1,
           }}
-        >
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <div className="mb-8 text-center">
-              <img src={logo} alt="logo" className="w-40 mb-8 mx-auto block" />
-              <h3 className="text-white text-3xl font-extrabold">
-                Iniciar sesión en GearthLogic
-              </h3>
-            </div>
+        />
 
-            {error && (
-              <p className="text-red-500 text-sm text-center">{error}</p>
-            )}
+        <Box mb={4}>
+          <img src={logo} alt="logo" style={{ width: "100px", margin: "0 auto" }} />
+          <Typography
+            variant="h5"
+            fontWeight="bold"
+            sx={{ color: "#ffffff", marginTop: 2 }}
+          >
+            Iniciar sesión en GearthLogic
+          </Typography>
+        </Box>
 
-            <div>
-              <label className="text-gray-200 text-sm mb-2 block">
-                Usuario
-              </label>
-              <div className="relative flex items-center">
-                <input
-                  name="email"
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full text-sm text-gray-800 border border-gray-700 bg-gray-50 px-4 py-3 rounded-lg outline-blue-600"
-                  placeholder="Enter user name"
-                />
-              </div>
-            </div>
-            <div>
-              <label className="text-gray-200 text-sm mb-2 block">
-                Contraseña
-              </label>
-              <div className="relative flex items-center">
-                <input
-                  name="password"
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full text-sm text-gray-800 border border-gray-700 bg-gray-50 px-4 py-3 rounded-lg outline-blue-600"
-                  placeholder="••••••"
-                />
-              </div>
-            </div>
+        <form onSubmit={handleSubmit}>
+          {error && (
+            <Typography color="error" variant="body2" mb={2}>
+              {error}
+            </Typography>
+          )}
 
-            <div className="flex flex-col items-center mt-8 space-y-4">
-              <button
-                type="submit"
-                disabled={!email || !password}
-                className={`w-1/2 shadow-xl py-2 px-3 text-sm tracking-wide rounded-lg text-black bg-white `}
-              >
-                Iniciar sesión
-              </button>
+          <TextField
+            label="Usuario"
+            variant="filled"
+            fullWidth
+            margin="normal"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            sx={{
+              input: { color: "#ffffff" },
+              label: { color: "#ffffff" },
+              "& .MuiFilledInput-root": {
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+                borderRadius: "5px",
+                color:"white"
+              },
+            }}
+          />
 
-              <button
-                type="button"
-                onClick={handleGoogleLogin}
-                className="flex items-center justify-center w-1/2 shadow-xl py-2 px-4 text-sm font-medium tracking-wide rounded-lg bg-white border border-gray-300 hover:shadow-md hover:bg-gray-100 transition"
-              >
-                <div className="flex items-center space-x-2">
-                  {/* Icono de Google */}
-                  <img src={logoGoogle} alt="" style={{width:'30px'}} />
-                  {/* Texto */}
-                  <span className="text-gray-700">
-                    Iniciar sesión con Google
-                  </span>
-                </div>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </>
+          <TextField
+            label="Contraseña"
+            type="password"
+            variant="filled"
+            fullWidth
+            margin="normal"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            sx={{
+              input: { color: "#ffffff" },
+              label: { color: "#ffffff" },
+              "& .MuiFilledInput-root": {
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+                borderRadius: "5px",
+              },
+            }}
+          />
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                sx={{
+                  color: "#ffffff",
+                  "&.Mui-checked": { color: "#3c72fc" },
+                }}
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
+            }
+            label="Recuérdame"
+            sx={{
+              color: "#ffffff",
+            }}
+          />
+
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{
+              mt: 2,
+              backgroundColor: "black",
+              color: "#ffffff",
+              "&:hover": { backgroundColor: "white", color:'black' },
+            }}
+          >
+            Iniciar Sesión
+          </Button>
+
+          <Button
+            type="button"
+            variant="outlined"
+            fullWidth
+            startIcon={<GoogleIcon />}
+            sx={{
+              mt: 2,
+              color: "#ffffff",
+              borderColor: "#ffffff",
+              "&:hover": {
+                backgroundColor: "#ffffff",
+                color: "#3c72fc",
+              },
+            }}
+            onClick={handleGoogleLogin}
+          >
+            Iniciar Sesión con Google
+          </Button>
+        </form>
+      </Paper>
+    </Container>
   );
 };
 
