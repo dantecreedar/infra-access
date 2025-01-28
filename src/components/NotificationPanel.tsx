@@ -5,9 +5,9 @@ import { Notifications as NotificationsIcon } from "@mui/icons-material";
 const NotificationPanel: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [notifications] = useState([
-    "Nuevo mensaje de cliente",
+    "Nuevo mensaje ",
     "Actualización de sistema disponible",
-    "Tienes una reunión en 30 minutos",
+    ,
   ]);
 
   const toggleDrawer = (open: boolean) => () => {

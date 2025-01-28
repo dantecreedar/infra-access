@@ -11,6 +11,7 @@ import Tooltip from "@mui/material/Tooltip";
 
 import Logout from "@mui/icons-material/Logout";
 
+
 export default function AccountMenu() {
   const user = {
     mail: "usuario@mail.com",
@@ -39,6 +40,7 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
+          
             <div className="flex gap-5">
             <img
               alt=""
@@ -88,10 +90,13 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
+       
         <Box className="flex justify-center m-4">
-          <p className="hidden sm:block">{user.mail}</p>
+          <p className=" sm:block">{user.mail}</p>
         </Box>
         <MenuItem onClick={handleClose} className="gap-3">
+
+        
         <div>
         <img
               alt=""

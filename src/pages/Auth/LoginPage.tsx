@@ -44,6 +44,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   };
 
   return (
+   <div className="bg-[#3c72fc]">
+
     <Container
       maxWidth="xs"
       sx={{
@@ -52,6 +54,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
         alignItems: "center",
         justifyContent: "center",
         background: "linear-gradient(90deg, #3c72fc -10.59%, #00060c 300.59%)",
+      
       }}
     >
       <Paper
@@ -140,7 +143,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
               <Checkbox
                 sx={{
                   color: "#ffffff",
-                  "&.Mui-checked": { color: "#3c72fc" },
+                  "&.Mui-checked": { color: "black" },
                 }}
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
@@ -187,6 +190,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
         </form>
       </Paper>
     </Container>
+
+   </div>
   );
 };
 
