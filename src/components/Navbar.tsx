@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import AccountMenu from "./AcountMenu";
@@ -6,6 +7,7 @@ import SidebarMobile from "./SidebarMobile";
 import SearchPanel from "./SearchPanel";
 import { Tooltip } from "@mui/material";
 import { motion } from "framer-motion"; // Importamos Framer Motion
+
 
 const Navbar: React.FC = () => {
   const [openMenu, setOpenMenu] = useState(false);
