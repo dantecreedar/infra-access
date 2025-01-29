@@ -9,23 +9,40 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import logo from "../../public/gearth.png";
+import { motion } from "framer-motion";
 
-const Sidebar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+interface SidebarProp {
+  onToggle: (isOpen: boolean) => void;
+}
+
+const Sidebar: React.FC<SidebarProp> = ({ onToggle }) => {
+  const [isOpen, setIsOpen] = useState(true);
 
   const toggleSidebar = () => {
-    setIsOpen(!isOpen);
+    const newState = !isOpen;
+    setIsOpen(newState);
+    onToggle(newState);
   };
 
   return (
-    <div className="flex">
+    <motion.div
+      className="flex min-h-screen"
+      initial={{ x: -250 }}
+      animate={{ x: 0 }}
+      exit={{ x: -250 }}
+      transition={{ duration: 0.8 }}
+    >
       {/* Sidebar */}
-      <div
-        className={`bg-gray-800 text-white h-screen ${
-          isOpen ? "w-64" : "w-16"
-        } transition-all duration-500 ease-in-out`}
+      <motion.div
+        className={`bg-[linear-gradient(90deg,_#3c72fc_-10.59%,_#00060c_300.59%)] text-white ${
+          isOpen ? "w-40" : "w-16"
+        } transition-all duration-500 ease-in-out hidden sm:block`}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
       >
-        <div className="flex justify-between items-center p-4 border-gray-700">
+        <div className="flex-1 justify-between items-center p-4 border-gray-700">
           <button
             className={`text-xl focus:outline-none transform ${
               isOpen ? "rotate-90" : "rotate-0"
@@ -35,93 +52,142 @@ const Sidebar: React.FC = () => {
             {/* Cambiar icono dependiendo del estado */}
             {isOpen ? <FaTimes /> : <FaBars />}
           </button>
-          {isOpen && <h1 className="text-lg font-bold">tutu</h1>}
+          <div className="flex justify-center mt-5">
+            {isOpen && (
+              <motion.img
+                src={logo}
+                alt=""
+                width={60}
+                className="flex justify-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 3 }}
+              />
+            )}
+          </div>
         </div>
 
-        <nav className="mt-6">
+        {/* Crear ruta para el dashboard (dashboard routes) */}
+        <motion.nav className="mt-6">
           {/* Botón Home */}
-          <NavLink
-            to="/"
-            className="flex items-center gap-4 px-4 py-3 hover:bg-gray-700"
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3 }}
           >
-            <FaHome />
-            <span
-              className={`${
-                isOpen
-                  ? "opacity-100 max-w-full translate-x-0"
-                  : "opacity-0 max-w-0 translate-x-6"
-              } transition-all duration-500 ease-in-out`}
+            <NavLink
+              to="/home"
+              className="flex items-center gap-4 px-4 py-3 hover:bg-[rgb(15, 13, 29)] focus:outline-none focus:bg-[rgb(15, 13, 29)]"
             >
-              Home
-            </span>
-          </NavLink>
+              <FaHome />
+              <span
+                className={`${
+                  isOpen
+                    ? "opacity-100 max-w-full translate-x-0"
+                    : "opacity-0 max-w-0 translate-x-6"
+                } transition-all duration-500 ease-in-out`}
+              >
+                Home
+              </span>
+            </NavLink>
+          </motion.div>
+
           {/* Botón Jenkins */}
-          <NavLink
-            to="/jenkins"
-            className="flex items-center gap-4 px-4 py-3 hover:bg-gray-700"
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4 }}
           >
-            <FaJenkins />
-            <span
-              className={`${
-                isOpen
-                  ? "opacity-100 max-w-full translate-x-0"
-                  : "opacity-0 max-w-0 translate-x-6"
-              } transition-all duration-500 ease-in-out`}
+            <NavLink
+              to="/jenkins"
+              className="flex items-center gap-4 px-4 py-3 hover:bg-black focus:outline-none focus:bg-black"
             >
-              Jenkins
-            </span>
-          </NavLink>
+              <FaJenkins />
+              <span
+                className={`${
+                  isOpen
+                    ? "opacity-100 max-w-full translate-x-0"
+                    : "opacity-0 max-w-0 translate-x-6"
+                } transition-all duration-500 ease-in-out`}
+              >
+                Jenkins
+              </span>
+            </NavLink>
+          </motion.div>
+
           {/* Botón AWS */}
-          <NavLink
-            to="/aws"
-            className="flex items-center gap-4 px-4 py-3 hover:bg-gray-700"
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            <FaAws />
-            <span
-              className={`${
-                isOpen
-                  ? "opacity-100 max-w-full translate-x-0"
-                  : "opacity-0 max-w-0 translate-x-6"
-              } transition-all duration-500 ease-in-out`}
+            <NavLink
+              to="/aws"
+              className="flex items-center gap-4 px-4 py-3 hover:bg-black focus:outline-none focus:bg-black"
             >
-              AWS
-            </span>
-          </NavLink>
+              <FaAws />
+              <span
+                className={`${
+                  isOpen
+                    ? "opacity-100 max-w-full translate-x-0"
+                    : "opacity-0 max-w-0 translate-x-6"
+                } transition-all duration-500 ease-in-out`}
+              >
+                AWS
+              </span>
+            </NavLink>
+          </motion.div>
+
           {/* Botón Backend */}
-          <NavLink
-            to="/backend"
-            className="flex items-center gap-4 px-4 py-3 hover:bg-gray-700"
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            <FaServer />
-            <span
-              className={`${
-                isOpen
-                  ? "opacity-100 max-w-full translate-x-0"
-                  : "opacity-0 max-w-0 translate-x-6"
-              } transition-all duration-500 ease-in-out`}
+            <NavLink
+              to="/backend"
+              className="flex items-center gap-4 px-4 py-3 hover:bg-black focus:outline-none focus:bg-black"
             >
-              Backend
-            </span>
-          </NavLink>
+              <FaServer />
+              <span
+                className={`${
+                  isOpen
+                    ? "opacity-100 max-w-full translate-x-0"
+                    : "opacity-0 max-w-0 translate-x-6"
+                } transition-all duration-500 ease-in-out`}
+              >
+                Backend
+              </span>
+            </NavLink>
+          </motion.div>
+
           {/* Botón Frontend */}
-          <NavLink
-            to="/frontend"
-            className="flex items-center gap-4 px-4 py-3 hover:bg-gray-700"
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
           >
-            <FaCode />
-            <span
-              className={`${
-                isOpen
-                  ? "opacity-100 max-w-full translate-x-0"
-                  : "opacity-0 max-w-0 translate-x-6"
-              } transition-all duration-500 ease-in-out`}
+            <NavLink
+              to="/frontend"
+              className="flex items-center gap-4 px-4 py-3 hover:bg-black focus:outline-none focus:bg-black"
             >
-              Frontend
-            </span>
-          </NavLink>
-        </nav>
-      </div>
-    </div>
+              <FaCode />
+              <span
+                className={`${
+                  isOpen
+                    ? "opacity-100 max-w-full translate-x-0"
+                    : "opacity-0 max-w-0 translate-x-6"
+                } transition-all duration-500 ease-in-out`}
+              >
+                Frontend
+              </span>
+            </NavLink>
+          </motion.div>
+        </motion.nav>
+        <hr />
+        <div className="flex justify-center gap-3 mt-3 absolute left-4"></div>
+      </motion.div>
+    </motion.div>
   );
 };
 
