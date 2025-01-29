@@ -1,9 +1,9 @@
-export const LoginDto = (req: any) => ({
+export const Login = (req: any) => ({
   email: req.body.email as string,
   password: req.body.password as string,
 });
 
-export const RegisterDto = (req: any) => ({
+export const Register = (req: any) => ({
   email: req.body.email as string,
   password: req.body.password as string,
   name: req.body.name as string,

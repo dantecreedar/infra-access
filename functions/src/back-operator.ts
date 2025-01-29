@@ -1,65 +1,26 @@
-import { Router } from "express";
-import firebase from "../config/firebase";
-import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
-import { LoginDto, RegisterDto } from "./model/auth";
+// Importar dependencias
+import * as functions from "firebase-functions/v2";
+import express from "express"; // Importa Express
+import bodyParser from "body-parser";
+const app = express();
 
-const router = Router();
+app.use(express.json());
 
-// Endpoint de registro
-router.post("/register", async (req, res) => {
-  try {
-    const userData = RegisterDto(req);
+// Middleware para parsear los datos JSON en las peticionesa
 
-    // Guardar datos en Firestore
-    const userDoc = await addDoc(collection(firebase.db, "users"), {
-      email: userData.email,
-      name: userData.name,
-      lastName: userData.lastName,
-      phone: userData.phone,
-      createdAt: new Date(),
-    });
+app.use(bodyParser.urlencoded({ extended: true }));
 
-    res.status(201).json({
-      message: "Usuario registrado exitosamente",
-      userId: userDoc.id,
-    });
-  } catch (error: any) {
-    res.status(400).json({
-      error: error.message,
-    });
-  }
-});
+// Middleware para parsear los datos JSON en las peticiones
 
-// Endpoint de login
-router.post("/login", async (req, res) => {
-  try {
-    const loginData = LoginDto(req);
+app.use(bodyParser.json());
 
-    // Buscar datos del usuario en Firestore
-    const q = query(
-      collection(firebase.db, "users"),
-      where("email", "==", loginData.email)
-    );
+//rutas login and register
 
-    const querySnapshot = await getDocs(q);
+app.use(require("./routes/login"));
 
-    if (querySnapshot.empty) {
-      return res.status(404).json({
-        error: "Usuario no encontrado",
-      });
-    }
+app.use(require("./routes/register"));
 
-    const userData = querySnapshot.docs[0].data();
+// rutas de admin
 
-    res.status(200).json({
-      message: "Login exitoso",
-      user: userData,
-    });
-  } catch (error: any) {
-    res.status(400).json({
-      error: error.message,
-    });
-  }
-});
-
-export default router;
+// Exportar la app como función de Firebase
+exports.api = functions.https.onRequest(app);

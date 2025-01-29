@@ -17,10 +17,10 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const admin = initializeApp(firebaseConfig);
 
 export default {
-  db: getFirestore(app),
-  auth: getAuth(app),
-  app,
+  db: getFirestore(admin),
+  auth: getAuth(admin),
+  admin,
 };
