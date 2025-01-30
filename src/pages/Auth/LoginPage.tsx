@@ -53,7 +53,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(90deg, #3c72fc -10.59%, #00060c 300.59%)",
+        background: "bg-[#3c72fc]",
       
       }}
     >
