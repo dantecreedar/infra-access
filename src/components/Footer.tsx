@@ -1,15 +1,14 @@
 import React from "react";
+import IconButton from "@mui/material/IconButton";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className=" text-white py-4 fix bg-black" >
-      <div className="container mx-auto text-center">
-        <a
-          href="/privacy-policy"
-          className="text-white hover:text-gray-200 "
-        >
-          Políticas de Privacidad
-        </a>
+    <footer className="text-white py-4 bg-black">
+      <div className="container mx-auto text-end">
+        <IconButton className="text-white">
+        <MoreVertIcon sx={{ color: "white" }} />
+        </IconButton>
       </div>
     </footer>
   );
